@@ -1,0 +1,24 @@
+@use "../../assets/scss/" as *;
+
+.building-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .building-content {
+    background-color: var(--primary-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 15px;
+    .building-action {
+      @include flex(space-between, null);
+      padding: 1rem;
+      &__search-group {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

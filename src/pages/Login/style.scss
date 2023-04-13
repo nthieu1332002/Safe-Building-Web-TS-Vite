@@ -1,0 +1,60 @@
+@use "../../assets/scss/" as *;
+
+.login-field {
+  padding: 4rem 6rem;
+  @include flex(null, center);
+  flex-direction: column;
+
+  height: 100%;
+  gap: 2.5rem;
+  .logo {
+    width: 235px;
+    height: 165px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .sign-in-title {
+    font-size: 3rem;
+    padding: 2rem 0;
+  }
+  .forgot-password {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    #link {
+      text-decoration: underline;
+      font-size: 1.5rem;
+      color: black;
+    }
+  }
+  .custom-input {
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--primary-color);
+  }
+
+  .login-button {
+    height: 4rem;
+    background-color: var(--fourth-color);
+    font-size: 1.5rem;
+    &:hover {
+      background-color: var(--button-hover-color);
+    }
+
+    &:active {
+      background-color: var(--button-active-color);
+    }
+  }
+  .google-button {
+    font-size: 1.5rem;
+    height: 4rem;
+    @include flex(center, center);
+    gap: 0.5rem;
+  }
+  #alternative-signin {
+    font-size: 1.5rem;
+    color: #686868;
+  }
+}

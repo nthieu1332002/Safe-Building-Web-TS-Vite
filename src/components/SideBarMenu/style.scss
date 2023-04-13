@@ -1,0 +1,29 @@
+@use "../../assets/scss/" as *;
+
+
+.nav-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    &__item {
+        display: flex;
+        color: var(--third-color);
+        background-color: var(--primary-color);
+        padding: 12px 14px;
+        font-size: 1.65rem;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: 0.3s;
+        &__icon {
+            font-size: 1.9rem;
+            margin-right: 1rem;
+        }
+        &__name {
+
+        }
+        &.active {
+            color: var(--primary-color);
+            background-color: var(--fourth-color);
+        }
+    }
+}

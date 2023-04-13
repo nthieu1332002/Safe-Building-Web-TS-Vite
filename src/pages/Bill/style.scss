@@ -1,0 +1,24 @@
+@use "../../assets/scss/" as *;
+
+.bill-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .bill-content {
+    background-color: var(--primary-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 15px;
+    .bill-action {
+      @include flex(space-between, null);
+      padding: 1rem;
+      &__search-group, &__button-group {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@use "../../assets/scss/" as *;
+
+.main-container {
+  display: flex;
+  background-color: var(--background-color);
+  height: 100vh;
+  width: 100vw;
+  .side-bar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 18%;
+    background-color: var(--primary-color);
+    padding: 2rem;
+    .brand-container {
+      cursor: pointer;
+      height: auto;
+      width: 100%;
+      margin-bottom: 2rem;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .logout-container {
+      margin-top: auto;
+      display: flex;
+      color: var(--third-color);
+      background-color: var(--primary-color);
+      padding: 12px 14px;
+      font-size: 1.65rem;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: 0.3s;
+      cursor: pointer;
+      &:hover {
+        color: var(--primary-color);
+        background-color: var(--fourth-color);
+      }
+      .icon {
+        font-size: 1.9rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+  .main-content {
+    width: 82%;
+    padding: 3rem;
+    background-color: var(--background-color);
+    overflow-y: scroll;
+  }
+}

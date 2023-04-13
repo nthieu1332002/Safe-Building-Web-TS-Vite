@@ -1,0 +1,5 @@
+@use "../../assets/scss/" as *;
+
+.custom-pagination {
+    @include flex(center, center);
+}

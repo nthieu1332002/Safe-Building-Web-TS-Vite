@@ -1,0 +1,23 @@
+@use "../../assets/scss/" as *;
+
+.error-container {
+  height: 100vh;
+  width: 100vw;
+  @include flex(center, center);
+
+  .error-wrapper {
+    @include flex(center, center);
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    .back-to-home {
+      padding: 10px 12px;
+      background-color: var(--fourth-color);
+      border-radius: 5px;
+    }
+    img {
+      width: 500px;
+      height: auto;
+    }
+  }
+}

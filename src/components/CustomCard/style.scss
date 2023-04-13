@@ -1,0 +1,13 @@
+@use "../../assets/scss/" as *;
+
+.custom-card {
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+    padding: 2rem 2rem 4rem;
+    .card-header {
+        @include flex(space-between, null);
+        .card-title {
+            margin-bottom: 1rem;
+        }
+    }
+}

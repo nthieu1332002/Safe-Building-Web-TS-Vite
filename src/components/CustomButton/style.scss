@@ -1,0 +1,17 @@
+@use "../../assets/scss/" as *;
+
+.custom-button {
+    padding: 0.8rem 1.5rem;
+    @include flex(space-between, center);
+    gap: 0.5rem;
+    background-color: var(--fourth-color);
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    &:hover {
+        background-color: var(--button-hover-color)
+    }
+}
