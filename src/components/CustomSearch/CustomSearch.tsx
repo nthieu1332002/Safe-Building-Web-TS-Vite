@@ -6,7 +6,7 @@ const { Search } = Input;
 interface CustomSearchProps {
   placeholder: string;
   onSearch?: (value: string) => void;
-  width: string;
+  width?: string;
 }
 
 const CustomSearch = ({ placeholder, onSearch, width }: CustomSearchProps) => {

@@ -12,7 +12,7 @@ import { flatStatus } from "../../ultis/types";
 import "./style.scss";
 
 const Flat = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { flats, flatType, page, size, totalPage, loading } = useSelector(
     (state) => state.flat
   );
@@ -149,7 +149,6 @@ const Flat = () => {
           <div className="flat-action">
             <CustomSearch
               placeholder="Search flat.."
-              allowClear
               onSearch={onSearch}
               width="30%"
             />

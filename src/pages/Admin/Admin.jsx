@@ -14,7 +14,7 @@ import "./style.scss";
 
 const Admin = () => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { adminAccounts, page, size, totalPage, loading } = useSelector(
     (state) => state.admin
   );
@@ -178,7 +178,6 @@ const Admin = () => {
           <div className="admin-action">
             <CustomSearch
               placeholder="Search admin account.."
-              allowClear
               onSearch={onSearch}
               width="30%"
             />

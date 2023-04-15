@@ -1,10 +1,10 @@
 import api from "./apiConfig";
-
+import { Search } from "../../../types/search.type"
 // sample: 
 
 const contractAPI = {
-    getContractAPI: ({ page, size, searchKey, sortBy, order  }) => {
-        const url =`/rent-contracts?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
+    getContractAPI: ({ page, size, searchKey, sortBy, order }: Search) => {
+        const url = `/rent-contracts?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
         return api.get(url)
     },
     postContractAPI: (data) => {
@@ -14,8 +14,8 @@ const contractAPI = {
         }
         return api.post(url, body);
     },
-    getContractByIdAPI: ({id}) => {
-        const url =`/rent-contracts/${id}`;
+    getContractByIdAPI: ({ id }) => {
+        const url = `/rent-contracts/${id}`;
         return api.get(url)
     },
     editContractAPI: (data) => {
@@ -25,8 +25,8 @@ const contractAPI = {
         }
         return api.put(url, body);
     },
-    deleteContractAPI: ({id}) => {
-        const url =`/rent-contracts/delete-contract/${id}`;
+    deleteContractAPI: ({ id }: { id: string }) => {
+        const url = `/rent-contracts/delete-contract/${id}`;
         return api.delete(url)
     }
 }

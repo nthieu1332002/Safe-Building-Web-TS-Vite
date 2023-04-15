@@ -3,8 +3,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { createBuilding } from "../../../store/building/buildingSlice";
 import { buildingStatus } from "../../../ultis/types";
+import { useAppDispatch } from "../../../store/store";
 
-const BuildingFormAdd = ({
+interface BuildingFormAddProps {
+  loading: boolean;
+  isModalOpen: boolean;
+  setIsModalAddOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: () => void;
+  handleCancel: () => void;
+}
+
+const BuildingFormAdd:React.FC<BuildingFormAddProps> = ({
   loading,
   isModalOpen,
   handleCancel,
@@ -12,7 +21,7 @@ const BuildingFormAdd = ({
   handleSubmit,
 }) => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const options = buildingStatus.map((item) => {
     return { value: item.status, label: item.status };
   });
@@ -27,7 +36,7 @@ const BuildingFormAdd = ({
         form
           .validateFields()
           .then((values) => {
-            dispatch(createBuilding(values)).then((res) => {
+            dispatch(createBuilding(values)).then((res: any) => {
               if (res.payload.status === 201) {
                 form.resetFields();
                 setIsModalAddOpen(false);

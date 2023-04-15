@@ -13,7 +13,7 @@ import ServiceFormAdd from "../../components/Form/ServiceForm/ServiceFormAdd";
 const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
 
 const Service = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { services, searchKey, sortBy, order, page, size, totalPage, loading } =
     useSelector((state) => state.service);
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
@@ -113,7 +113,6 @@ const Service = () => {
             <div className="service-action__search-group">
               <CustomSearch
                 placeholder="Search service.."
-                allowClear
                 onSearch={onSearch}
               />
               <CustomSelect

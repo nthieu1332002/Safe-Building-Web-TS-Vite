@@ -17,7 +17,7 @@ import "./style.scss";
 import BillFormMonthly from "../../components/Form/BillForm/BillFormMonthly";
 
 const Bill = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { bills, billDetail, page, size, totalPage, loading } = useSelector(
     (state) => state.bill
   );
@@ -167,7 +167,6 @@ const Bill = () => {
           <div className="bill-action">
             <CustomSearch
               placeholder="Search bill account.."
-              allowClear
               //   onSearch={onSearch}
               width="30%"
             />

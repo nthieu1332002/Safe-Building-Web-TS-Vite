@@ -1,13 +1,13 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import store from "../../../store/store";
+import { store } from "../../../store/store";
 import { logout } from "../../../store/user/userSlice";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API,
   headers: {
-    "Content-Type": "multipart/form-data",
+    "Content-Type": "application/json",
   },
 });
 

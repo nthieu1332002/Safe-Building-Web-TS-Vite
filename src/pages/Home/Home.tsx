@@ -22,7 +22,7 @@ import ServiceChart from "../../components/Chart/ServiceChart";
 const { getRevenueAPI, getContractAPI } = dashboardAPI;
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     contractList,
     contractLoading,

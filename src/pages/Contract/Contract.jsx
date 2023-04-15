@@ -22,7 +22,7 @@ const { Text } = Typography;
 
 const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
 const Contract = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     contracts,
     page,
@@ -190,7 +190,6 @@ const Contract = () => {
           <div className="contract-action__search-group">
             <CustomSearch
               placeholder="Search contract.."
-              allowClear
               onSearch={onSearch}
             />
             <CustomSelect

@@ -21,7 +21,7 @@ import NotiFormAdd from "../../components/Form/NotiForm/NotiFormAdd";
 import { toast } from "react-toastify";
 
 const Resident = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     residents,
     residentDetail,
@@ -179,7 +179,6 @@ const Resident = () => {
             <div className="resident-action__search-group">
               <CustomSearch
                 placeholder="Search resident.."
-                allowClear
                 onSearch={onSearch}
               />
               <CustomSelect

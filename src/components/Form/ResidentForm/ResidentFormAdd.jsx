@@ -11,7 +11,7 @@ const ResidentFormAdd = ({
   handleSubmit
 }) => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <Modal
       title="CREATE RESIDENT ACCOUNT"

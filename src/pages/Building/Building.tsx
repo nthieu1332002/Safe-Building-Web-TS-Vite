@@ -1,6 +1,6 @@
 import { Table, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
@@ -10,10 +10,13 @@ import { AiFillFilter } from "react-icons/ai";
 import "./style.scss";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
 import BuildingFormAdd from "../../components/Form/BuildingForm/BuildingFormAdd";
+import { RootState, useAppDispatch } from "../../store/store";
+import { Building } from "../../types/building.type";
+import { ColumnsType } from "antd/es/table";
 const { Text } = Typography;
 
 const Building = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     buildings,
     searchKey,
@@ -23,7 +26,7 @@ const Building = () => {
     size,
     totalPage,
     loading,
-  } = useSelector((state) => state.building);
+  } = useSelector((state: RootState) => state.building);
 
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
 
@@ -32,24 +35,24 @@ const Building = () => {
   const [sortByString, setSortByString] = useState(sortBy);
   const [sortByOrder, setSortByOrder] = useState(order);
   const [ellipsis, setEllipsis] = useState(true);
-  const columns = [
+  const columns: ColumnsType<Building> = [
     {
       title: "#",
       key: "index",
-      render: (value, item, index) => (page - 1) * 10 + index + 1,
+      render: (value: any, item: any, index: number) => (page - 1) * 10 + index + 1,
     },
     {
       title: "Building name",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      render: (text) => <b>{text}</b>,
+      sorter: (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name),
+      render: (text: string) => <b>{text}</b>,
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      render: (text) => (
+      render: (text: string) => (
         <Text ellipsis style={ellipsis ? { width: 250 } : undefined}>
           <b>{text}</b>
         </Text>
@@ -60,16 +63,16 @@ const Building = () => {
       dataIndex: "capacity",
       key: "capacity",
       align: "center",
-      sorter: (a, b) => a.capacity - b.capacity,
-      render: (text) => <b>{text}</b>,
+      sorter: (a: {capacity: number}, b: {capacity: number}) => a.capacity - b.capacity,
+      render: (text: number) => <b>{text}</b>,
     },
     {
       title: "Status",
       dataIndex: "status",
       align: "center",
       key: "status",
-      sorter: (a, b) => a.status.localeCompare(b.status),
-      render: (text) => (
+      sorter: (a: {status: string}, b: {status: string}) => a.status.localeCompare(b.status),
+      render: (text: string ) => (
         <>
           {buildingStatus.map((item) => {
             return (
@@ -105,11 +108,11 @@ const Building = () => {
     getBuildingList();
   }, [currentPage, dispatch, searchString, size, sortByOrder, sortByString]);
 
-  const onChange = (page) => {
+  const onChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const onSearch = (value) => {
+  const onSearch = (value: string) => {
     setSearchString(value);
   };
 
@@ -128,7 +131,6 @@ const Building = () => {
             <div className="building-action__search-group">
               <CustomSearch
                 placeholder="Search building.."
-                allowClear
                 onSearch={onSearch}
               />
               <CustomSelect
@@ -158,7 +160,7 @@ const Building = () => {
             </div>
             <CustomButton onClick={handleAddNew}>Add new</CustomButton>
           </div>
-          <Table
+          <Table<Building>
             // rowKey="id"
             dataSource={buildings}
             columns={columns}

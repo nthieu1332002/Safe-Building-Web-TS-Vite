@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/user/userSlice";
 
 const Layout = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   let navigate = useNavigate(); 
   const handleNavigate =() => {
     navigate("/")

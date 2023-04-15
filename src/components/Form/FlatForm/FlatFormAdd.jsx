@@ -14,7 +14,7 @@ const FlatFormAdd = ({
   flatType,
 }) => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { buildingList } = useSelector((state) => state.building);
   const options = flatStatus.map((item) => {
     return { value: item.status, label: item.status };

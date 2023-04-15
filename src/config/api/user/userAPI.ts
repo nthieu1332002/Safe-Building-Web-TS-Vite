@@ -1,9 +1,16 @@
 import api from "./apiConfig";
 
-// sample: 
+export interface LoginRequest {
+    email?: any;
+    token?: string;
+    phone?: string;
+    password?: string;
+    withEmail: boolean;
+    web: boolean;
+};
 
 const userAPI = {
-    loginAPI: (data) => {
+    loginAPI: (data: LoginRequest) => {
         const url = `/auth/login`;
 
         const body = {

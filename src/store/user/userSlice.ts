@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import userAPI from "../../config/api/user/userAPI"
+import userAPI, { LoginRequest }  from "../../config/api/user/userAPI"
 import { toast } from "react-toastify";
 
 const { loginAPI } = userAPI;
@@ -13,7 +13,8 @@ const refreshToken = Cookies.get('refreshToken')
     ? Cookies.get('refreshToken')
     : null
 
-const users = JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : null
+// const users = JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : null
+const users = JSON.parse(localStorage.getItem('users') || 'null') as null | unknown;
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -29,7 +30,6 @@ const userSlice = createSlice({
             Cookies.remove("refreshToken");
             state.userToken = null
         }
-
     },
     extraReducers: (builder) => {
         builder
@@ -46,7 +46,7 @@ const userSlice = createSlice({
                 state.loading = false
             })
             .addCase(login.rejected, (state) => {
-                state.users = {}
+                state.users = null
                 state.loading = false
             })
     }
@@ -54,24 +54,22 @@ const userSlice = createSlice({
 
 export const login = createAsyncThunk(
     "user/login",
-    async (data, { rejectWithValue }) => {
+    async (data: LoginRequest, { rejectWithValue }) => {
         try {
             const res = await loginAPI(data)
-            if (res.status === "202 ACCEPTED") {
-                toast.success(res.message)
+            if (res.status === 200) {
+                toast.success(res.data.message)
                 return res
             } else {
-                toast.error(res.message)
+                toast.error(res.data.message)
                 return rejectWithValue(res)
             }
-        } catch (err) {
+        } catch (err: any) {
             toast.error("Login failed! Check your info again.")
-            return rejectWithValue()
+            return rejectWithValue(err.response?.data)
         }
     }
 );
-
-
 
 export const { logout } = userSlice.actions;
 export default userSlice

@@ -3,6 +3,7 @@ import React, { MouseEventHandler } from "react";
 import "./style.scss";
 
 interface CustomButtonProps {
+  children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 

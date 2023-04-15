@@ -1,25 +1,43 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import buildingAPI from "../../config/api/building/buildingAPI.js"
+import { Building, CreateBuildingRequest } from "../../types/building.type";
+import { FlatList } from "../../types/flatList.type";
+import { Search } from "../../types/search.type.js";
 
-const { getBuildingFilterAPI, createBuildingAPI, getFlatListByBuildingIdAPI  } = buildingAPI;
+const { getBuildingFilterAPI, createBuildingAPI, getFlatListByBuildingIdAPI } = buildingAPI;
 
+interface BuildingState {
+    buildings: Building[],
+    buildingList: Building[],
+    flatList: FlatList[],
+    loading: boolean,
+    error?: string,
+    page: number,
+    size: number,
+    totalPage: number,
+    searchKey: string,
+    sortBy: string,
+    order: string,
+}
+
+const initialState: BuildingState = {
+    buildings: [],
+    buildingList: [],
+    flatList: [],
+    loading: false,
+    error: '',
+    page: 1,
+    size: 10,
+    totalPage: 0,
+    searchKey: '',
+    sortBy: '',
+    order: '',
+}
 
 const buildingSlice = createSlice({
     name: "building",
-    initialState: {
-        buildings: [],
-        buildingList: [],
-        flatList: [],
-        loading: false,
-        error: '',
-        page: 1,
-        size: 10,
-        totalPage: 0,
-        searchKey: '',
-        sortBy: '',
-        order: '',
-    },
+    initialState,
     reducers: {
 
     },
@@ -73,14 +91,14 @@ const buildingSlice = createSlice({
 
 export const getBuilding = createAsyncThunk(
     "building/getBuilding",
-    async (data, { rejectWithValue }) => {
+    async (data: Search, { rejectWithValue }) => {
         try {
             const res = await getBuildingFilterAPI(data);
             const response = {
                 data, res
             }
             return response;
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
             return rejectWithValue(err.response.data)
         }
@@ -89,11 +107,11 @@ export const getBuilding = createAsyncThunk(
 
 export const getAllBuilding = createAsyncThunk(
     "building/getAllBuilding",
-    async (data, { rejectWithValue }) => {
+    async (data: Search, { rejectWithValue }) => {
         try {
             const res = await getBuildingFilterAPI(data);
             return res;
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
             return rejectWithValue(err.response.data)
         }
@@ -102,14 +120,14 @@ export const getAllBuilding = createAsyncThunk(
 
 export const createBuilding = createAsyncThunk(
     "building/createBuilding",
-    async (data, { rejectWithValue }) => {
+    async (data: CreateBuildingRequest, { rejectWithValue }) => {
         try {
             const res = await createBuildingAPI(data);
             if (res.status === 201) {
                 toast.success(res.data.message)
                 return res
             }
-        } catch (err) {
+        } catch (err: any) {
             console.log("err", err);
             return rejectWithValue(err.response.data)
         }
@@ -118,11 +136,11 @@ export const createBuilding = createAsyncThunk(
 
 export const getFlatByBuilding = createAsyncThunk(
     "building/getFlatByBuilding",
-    async (data, { rejectWithValue }) => {
+    async (data: string, { rejectWithValue }) => {
         try {
             const res = await getFlatListByBuildingIdAPI(data);
             return res;
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
             return rejectWithValue(err.response.data)
         }
