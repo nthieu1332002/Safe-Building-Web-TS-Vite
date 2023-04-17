@@ -16,9 +16,19 @@ import { AiOutlineDelete } from "react-icons/ai";
 import ContractFormAdd from "../ContractForm/ContractFormAdd";
 import { getAllBuilding } from "../../../store/building/buildingSlice";
 import { deleteContractById } from "../../../store/contract/contractSlice";
+import { ResidentDetail } from "../../../types/resident.type";
 
 const { Text } = Typography;
 const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
+
+interface ResidentFormDetailProps {
+  dispatch: any;
+  onClose: () => void;
+  open: boolean;
+  customer: ResidentDetail;
+  onDelete: () => void;
+}
+
 
 const ResidentFormDetail = ({
   dispatch,
@@ -26,10 +36,10 @@ const ResidentFormDetail = ({
   open,
   customer,
   onDelete,
-}) => {
+}: ResidentFormDetailProps) => {
   const [isModalAddContractOpen, setIsModalAddContractOpen] = useState(false);
 
-  const handleDeleteContract = (id) => {
+  const handleDeleteContract = (id: string) => {
     dispatch(deleteContractById({ id: id })).then(() => {
       onDelete();
     });
@@ -107,7 +117,7 @@ const ResidentFormDetail = ({
             </Button>
           }
         />
-        {customer.contract !== "" ? (
+        {customer.contract.length > 0 ? (
           <List
             size="small"
             className="demo-loadmore-list"
@@ -178,13 +188,6 @@ const ResidentFormDetail = ({
         setIsModalAddContractOpen={setIsModalAddContractOpen}
         customer={customer}
       />
-      {/* <ContractFormEdit
-        dispatch={dispatch}
-        handleCancel={() => setIsModalEditContractOpen(false)}
-        isModalOpen={isModalEditContractOpen}
-        setIsModalEditContractOpen={setIsModalEditContractOpen}
-        contract={contractDetail}
-      /> */}
     </>
   );
 };

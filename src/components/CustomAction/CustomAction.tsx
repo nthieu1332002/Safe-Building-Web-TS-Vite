@@ -1,7 +1,25 @@
 import React from "react";
 import { Button, Dropdown, Popconfirm } from "antd";
 import { BsThreeDots } from "react-icons/bs";
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineEye, AiOutlineNotification } from "react-icons/ai";
+import {
+  AiOutlineEdit,
+  AiOutlineDelete,
+  AiOutlineEye,
+  AiOutlineNotification,
+} from "react-icons/ai";
+
+interface ICustomActionProps {
+  type: string;
+  onConfirm?: () => void;
+  onClickSave?: () => void;
+  editable?: boolean;
+  disabled?: boolean;
+  onClickEdit?: () => void;
+  onClickDelete?: () => void;
+  onClickDetail?: () => void;
+  onClickNoti?: () => void;
+}
+
 const CustomAction = ({
   type,
   onConfirm,
@@ -11,9 +29,9 @@ const CustomAction = ({
   onClickEdit,
   onClickDelete,
   onClickDetail,
-  onClickNoti
-}) => {
-  let items = [];
+  onClickNoti,
+}: ICustomActionProps) => {
+  let items: any[] = [];
   switch (type) {
     case "resident":
       items = [
@@ -52,7 +70,7 @@ const CustomAction = ({
           label: <div onClick={onClickDetail}>Detail</div>,
           key: "0",
           icon: <AiOutlineEye />,
-        }
+        },
       ];
       break;
     default:
@@ -96,7 +114,7 @@ const CustomAction = ({
   ) : (
     <Dropdown
       menu={{
-        items,
+        items
       }}
       trigger={["click"]}
       disabled={disabled}

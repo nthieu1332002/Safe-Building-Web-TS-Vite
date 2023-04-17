@@ -1,23 +1,40 @@
+import { CreateResidentRequest, Resident, ResidentDetail, UpdateResidentRequest } from './../../types/resident.type';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import residentAPI from "../../config/api/resident/residentAPI"
 import { toast } from "react-toastify";
+
+import { Search } from "../../types/search.type";
 const { getResidentAPI, createResidentAccountAPI, getResidentAccountByIdAPI, updateResidentAccountAPI } = residentAPI;
 
+interface ResidentState {
+    residents: Resident[];
+    residentDetail: ResidentDetail | null;
+    loading: boolean;
+    error?: string;
+    page: number,
+    size: number,
+    totalPage: number,
+    searchKey: string,
+    sortBy: string,
+    order: string,
+}
+
+const initialState: ResidentState = {
+    residents: [],
+    residentDetail: null,
+    loading: false,
+    error: '',
+    page: 1,
+    size: 10,
+    totalPage: 0,
+    searchKey: '',
+    sortBy: '',
+    order: '',
+}
 
 const residentSlice = createSlice({
     name: "resident",
-    initialState: {
-        residents: [],
-        residentDetail: {},
-        loading: false,
-        error: '',
-        page: 1,
-        size: 10,
-        totalPage: 0,
-        searchKey: '',
-        sortBy: '',
-        order: '',
-    },
+    initialState,
     reducers: {
     },
     extraReducers: (builder) => {
@@ -63,11 +80,11 @@ const residentSlice = createSlice({
 
 export const getResident = createAsyncThunk(
     "resident/getResident",
-    async (data, { rejectWithValue }) => {
+    async (data: Search, { rejectWithValue }) => {
         try {
             const res = await getResidentAPI(data);
             return res;
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
             return rejectWithValue(err.response.data)
         }
@@ -76,14 +93,14 @@ export const getResident = createAsyncThunk(
 
 export const createResident = createAsyncThunk(
     "resident/createResident",
-    async (data, { rejectWithValue }) => {
+    async (data: CreateResidentRequest, { rejectWithValue }) => {
         try {
             const res = await createResidentAccountAPI(data);
             if (res.status === 201) {
                 toast.success(res.data.message)
                 return res
             }
-        } catch (err) {
+        } catch (err: any) {
             console.log("err", err);
             return rejectWithValue(err.response.data)
         }
@@ -92,12 +109,11 @@ export const createResident = createAsyncThunk(
 
 export const getResidentById = createAsyncThunk(
     "resident/getResidentById",
-    async (data, { rejectWithValue }) => {
+    async (data: {id: string}, { rejectWithValue }) => {
         try {
             const res = await getResidentAccountByIdAPI(data);
-            console.log("res", res);
             return res;
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
             return rejectWithValue(err.response.data)
         }
@@ -106,14 +122,14 @@ export const getResidentById = createAsyncThunk(
 
 export const updateResident = createAsyncThunk(
     "resident/updateResident",
-    async (data, { rejectWithValue }) => {
+    async (data: UpdateResidentRequest, { rejectWithValue }) => {
         try {
             const res = await updateResidentAccountAPI(data);
             if (res.status === 201) {
                 toast.success(res.data.message)
                 return res
             }
-        } catch (err) {
+        } catch (err: any) {
             console.log("err", err);
             return rejectWithValue(err.response.data)
         }

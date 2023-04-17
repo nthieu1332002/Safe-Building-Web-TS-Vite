@@ -5,19 +5,20 @@ import CustomPagination from "../../components/CustomPagination/CustomPagination
 import moment from "moment";
 import { FilePdfTwoTone } from "@ant-design/icons";
 import { AiFillFilter } from "react-icons/ai";
-
+import { ColumnsType } from "antd/es/table";
 import "./style.scss";
 
 import {
   deleteContractById,
   getContract,
 } from "../../store/contract/contractSlice";
-
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 
 import { rentContractStatus, sortOption } from "../../ultis/types";
 import CustomAction from "../../components/CustomAction/CustomAction";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
+import { RootState, useAppDispatch } from "../../store/store";
+import { Contract } from "../../types/contract.type";
 const { Text } = Typography;
 
 const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
@@ -32,7 +33,7 @@ const Contract = () => {
     searchKey,
     sortBy,
     order,
-  } = useSelector((state) => state.contract);
+  } = useSelector((state: RootState) => state.contract);
   const [currentPage, setCurrentPage] = useState(page);
   const [ellipsis, setEllipsis] = useState(true);
 
@@ -56,12 +57,12 @@ const Contract = () => {
     getContractList();
   }, [currentPage, dispatch, size, searchString, sortByOrder, sortByString]);
 
-  const handleDeleteContract = (id) => {
+  const handleDeleteContract = (id: string) => {
     dispatch(deleteContractById({ id: id })).then(() => {
       getContractList();
     });
   };
-  const columns = [
+  const columns: ColumnsType<Contract> = [
     {
       title: "#",
       key: "index",
@@ -156,11 +157,11 @@ const Contract = () => {
     },
   ];
 
-  const onChange = (page) => {
+  const onChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const onSearch = (value) => {
+  const onSearch = (value: string) => {
     setSearchString(value);
   };
 
@@ -221,10 +222,8 @@ const Contract = () => {
               options={sortOption}
             />
           </div>
-          {/* <CustomButton onClick={showModal}>Add new</CustomButton> */}
         </div>
-        <Table
-          // rowKey="citizenId"
+        <Table<Contract>
           dataSource={contracts}
           columns={columns}
           pagination={false}

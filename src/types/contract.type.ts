@@ -8,3 +8,19 @@ export interface Contract {
     rentContractLink: string;
     status: string;
 }
+
+export interface ContractDetail {
+    id: string;
+    link: string;
+    roomNumber: number;
+    status: string;
+    title: string;
+    buildingName: string;
+    buildAddress: string;
+}
+
+export interface CreateContractRequest {
+    files: File;
+    requestContract: string;
+    deviceTokens: string;
+}

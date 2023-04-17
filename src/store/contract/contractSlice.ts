@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import contractAPI from "../../config/api/contract/contractAPI";
-import { Contract } from "../../types/contract.type"
+import { Contract, CreateContractRequest } from "../../types/contract.type"
 import { Search } from "../../types/search.type"
 const { getContractAPI, postContractAPI, deleteContractAPI, editContractAPI } = contractAPI;
 
@@ -80,7 +80,7 @@ export const getContract = createAsyncThunk(
 
 export const postContract = createAsyncThunk(
     "contract/postContract",
-    async (data, { rejectWithValue }) => {
+    async (data: CreateContractRequest, { rejectWithValue }) => {
         try {
             const res = await postContractAPI(data);
             if (res.status === 201) {

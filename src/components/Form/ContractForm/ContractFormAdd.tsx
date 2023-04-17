@@ -15,6 +15,7 @@ import { postContract } from "../../../store/contract/contractSlice";
 import { UploadOutlined } from "@ant-design/icons";
 
 import { getFlatByBuilding } from "../../../store/building/buildingSlice";
+import { RootState } from "../../../store/store";
 const ResidentFormAddContract = ({
   isModalOpen,
   handleCancel,
@@ -25,8 +26,8 @@ const ResidentFormAddContract = ({
 }) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
-  const { buildingList, flatList } = useSelector((state) => state.building);
-  const { loading } = useSelector((state) => state.contract);
+  const { buildingList, flatList } = useSelector((state: RootState) => state.building);
+  const { loading } = useSelector((state: RootState) => state.contract);
   const [currentBuilding, setCurrentBuilding] = useState(null);
   const [currentFlat, setCurrentFlat] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);

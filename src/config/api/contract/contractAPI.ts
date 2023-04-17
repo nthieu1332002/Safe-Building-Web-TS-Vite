@@ -1,5 +1,6 @@
 import api from "./apiConfig";
 import { Search } from "../../../types/search.type"
+import { CreateContractRequest } from "../../../types/contract.type";
 // sample: 
 
 const contractAPI = {
@@ -7,14 +8,14 @@ const contractAPI = {
         const url = `/rent-contracts?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
         return api.get(url)
     },
-    postContractAPI: (data) => {
+    postContractAPI: (data: CreateContractRequest) => {
         const url = `/rent-contracts/create-contract`;
         const body = {
             ...data
         }
         return api.post(url, body);
     },
-    getContractByIdAPI: ({ id }) => {
+    getContractByIdAPI: ({ id }: {id: string}) => {
         const url = `/rent-contracts/${id}`;
         return api.get(url)
     },
