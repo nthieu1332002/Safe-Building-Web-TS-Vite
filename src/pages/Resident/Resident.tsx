@@ -40,7 +40,6 @@ const Resident = () => {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDetailOpen, setIsModalDetailOpen] = useState(false);
   const [isNotiOpen, setIsNotiOpen] = useState(false);
-  const [isMultiNotiOpen, setIsMultiNotiOpen] = useState(false);
 
   const [fullname, setFullname] = useState<string>('');
   const [token, setToken] = useState<string>('');
@@ -245,6 +244,7 @@ const Resident = () => {
         setIsModalAddOpen={setIsModalAddOpen}
         handleSubmit={getResidentList}
         handleCancel={() => setIsModalAddOpen(false)}
+        dispatch={dispatch}
       />
       <ResidentFormEdit
         dispatch={dispatch}

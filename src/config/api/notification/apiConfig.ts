@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import store from "../../../store/store";
+import {store} from "../../../store/store";
 import { logout } from "../../../store/user/userSlice";
 
 const api = axios.create({

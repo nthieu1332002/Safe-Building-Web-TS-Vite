@@ -101,7 +101,6 @@ export const createResident = createAsyncThunk(
                 return res
             }
         } catch (err: any) {
-            console.log("err", err);
             return rejectWithValue(err.response.data)
         }
     }

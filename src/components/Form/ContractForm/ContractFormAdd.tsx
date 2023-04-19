@@ -16,21 +16,33 @@ import { UploadOutlined } from "@ant-design/icons";
 
 import { getFlatByBuilding } from "../../../store/building/buildingSlice";
 import { RootState } from "../../../store/store";
+import { ResidentDetail } from "../../../types/resident.type";
+import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
+
+interface ResidentFormAddContractProps {
+  isModalOpen: boolean;
+  handleCancel: () => void;
+  setIsModalAddContractOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  customer: ResidentDetail | null;
+  dispatch: any;
+}
+
 const ResidentFormAddContract = ({
   isModalOpen,
   handleCancel,
   setIsModalAddContractOpen,
-  handleSubmit,
   customer,
   dispatch,
-}) => {
+}: ResidentFormAddContractProps) => {
   const [form] = Form.useForm();
-  const [fileList, setFileList] = useState([]);
-  const { buildingList, flatList } = useSelector((state: RootState) => state.building);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const { buildingList, flatList } = useSelector(
+    (state: RootState) => state.building
+  );
   const { loading } = useSelector((state: RootState) => state.contract);
-  const [currentBuilding, setCurrentBuilding] = useState(null);
-  const [currentFlat, setCurrentFlat] = useState(null);
-  const [currentValue, setCurrentValue] = useState(null);
+  const [currentBuilding, setCurrentBuilding] = useState<string>();
+  const [currentFlat, setCurrentFlat] = useState<string>();
+  const [currentValue, setCurrentValue] = useState<number>();
 
   useEffect(() => {
     if (buildingList.length > 0) {
@@ -45,38 +57,38 @@ const ResidentFormAddContract = ({
     }
   }, [flatList]);
 
-  const fetchFlatList = () => {
-    dispatch(getFlatByBuilding(currentBuilding));
-  };
   useEffect(() => {
     if (currentBuilding) {
-      fetchFlatList();
+      dispatch(getFlatByBuilding(currentBuilding));
     }
   }, [currentBuilding]);
-  
+
   const buildingListOptions = buildingList.map((item) => {
     return { value: item.id, label: item.name };
   });
 
   const flatListOptions = flatList.map((item) => {
-    return { value: item.id, label: item.roomNumber};
+    return { value: item.id, label: item.roomNumber };
   });
-  const token = customer.devices?.map((item) => {
+  const token = customer?.devices?.map((item) => {
     return [item.token];
   });
-  const normFile = (e) => {
+  const normFile = (e: { fileList: any }) => {
     if (Array.isArray(e)) {
       return e;
     }
     return e?.fileList;
   };
 
-  const onChange = (value) => {
+  const onChange = (value: string) => {
     setCurrentBuilding(value);
   };
-  const handleChange = (value) => {
-    setCurrentFlat(value)
-    setCurrentValue(flatList.find((item) => item.id === value).value)
+  const handleChange = (value: string) => {
+    setCurrentFlat(value);
+    const item = flatList.find((item) => item.id === value);
+    if (item !== undefined) {
+      setCurrentValue(item.value);
+    }
   };
   return (
     <Modal
@@ -92,7 +104,7 @@ const ResidentFormAddContract = ({
             const values = {
               files: fieldsValue.files[0].originFileObj,
               requestContract: JSON.stringify({
-                customerId: customer.id,
+                customerId: customer?.id,
                 flatId: fieldsValue.flatId,
                 value: fieldsValue.value,
                 title: fieldsValue.title,
@@ -101,13 +113,14 @@ const ResidentFormAddContract = ({
               }),
               deviceTokens: JSON.stringify(token),
             };
-            dispatch(postContract(values)).then((res) => {
-              if (res.payload.status === 201) {
-                form.resetFields();
-                setIsModalAddContractOpen(false);
-                handleSubmit();
+            dispatch(postContract(values)).then(
+              (res: { payload: { status: number } }) => {
+                if (res.payload.status === 201) {
+                  form.resetFields();
+                  setIsModalAddContractOpen(false);
+                }
               }
-            });
+            );
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -179,8 +192,7 @@ const ResidentFormAddContract = ({
                 message: "Room is not valid.",
               },
             ]}
-            disabled={flatListOptions.length === 0}
-            >
+          >
             <Select
               disabled={flatListOptions.length === 0}
               options={flatListOptions}
@@ -202,11 +214,11 @@ const ResidentFormAddContract = ({
             },
           ]}
         >
-          <InputNumber
+          <InputNumber<number>
             formatter={(value) =>
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             }
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+            parser={(value) => Number(value?.replace(/\$\s?|(,*)/g, ""))}
             min={1}
             placeholder="Value"
             className="custom-input"

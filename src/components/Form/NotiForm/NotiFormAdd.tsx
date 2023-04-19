@@ -6,6 +6,16 @@ import {
   sendNotification,
 } from "../../../store/notification/notificationSlice";
 
+interface NotiFormAddProps {
+  dispatch: any;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleCancel: () => void;
+  token: string;
+  fullname: string;
+  customerId: React.Key[];
+}
+
 const NotiFormAdd = ({
   dispatch,
   isModalOpen,
@@ -14,7 +24,7 @@ const NotiFormAdd = ({
   token,
   fullname,
   customerId,
-}) => {
+}: NotiFormAddProps) => {
   const [form] = Form.useForm();
   return (
     <Modal
@@ -49,14 +59,14 @@ const NotiFormAdd = ({
               customerIdList: customerId,
             };
             if (customerId.length !== 0) {
-              dispatch(sendMultiNotification(values2)).then((res) => {
+              dispatch(sendMultiNotification(values2)).then((res: { payload: { status: number; }; }) => {
                 if (res.payload.status === 200) {
                   form.resetFields();
                   setIsModalOpen(false);
                 }
               });
             } else {
-              dispatch(sendNotification(values)).then((res) => {
+              dispatch(sendNotification(values)).then((res: { payload: { status: number; }; }) => {
                 if (res.payload.status === 200) {
                   form.resetFields();
                   setIsModalOpen(false);

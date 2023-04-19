@@ -1,28 +1,33 @@
+import { DatePicker, Form, Input, Modal, Radio, Space } from "antd";
 import React from "react";
-import { DatePicker, Form, Input, Modal, Radio, Select, Space } from "antd";
-import dayjs from "dayjs";
-import { customerStatus } from "../../../ultis/types";
-import { updateResident } from "../../../store/resident/residentSlice";
+import { useDispatch } from "react-redux";
+import { createResident } from "../../../store/resident/residentSlice";
+import { useAppDispatch } from "../../../store/store";
 
-const ResidentFormEdit = ({
+interface ResidentFormAddProps {
+  loading: boolean;
+  isModalOpen: boolean;
+  handleCancel: () => void;
+  setIsModalAddOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: () => void;
+  dispatch: any;
+}
+
+const ResidentFormAdd = ({
   loading,
   isModalOpen,
   handleCancel,
-  item,
-  dispatch,
-  setIsModalEditOpen,
-  handleSubmit
-}) => {
+  setIsModalAddOpen,
+  handleSubmit,
+  dispatch
+}: ResidentFormAddProps) => {
   const [form] = Form.useForm();
-  const options = customerStatus.map((item) => {
-    return { value: item.status, label: item.status };
-  });
   return (
     <Modal
-      title="EDIT RESIDENT ACCOUNT"
+      title="CREATE RESIDENT ACCOUNT"
       open={isModalOpen}
       onCancel={handleCancel}
-      okText="Save"
+      okText="Create"
       confirmLoading={loading}
       onOk={() => {
         form
@@ -30,16 +35,14 @@ const ResidentFormEdit = ({
           .then((fieldsValue) => {
             const values = {
               ...fieldsValue,
-              id: item.id,
+              dateOfBirth: fieldsValue["dateOfBirth"].format("YYYY-MM-DD"),
               email: fieldsValue["email"] || "",
               citizenId: "ctid",
-              dateOfBirth: fieldsValue["dateOfBirth"].format("YYYY-MM-DD"),
             };
-
-            dispatch(updateResident(values)).then((res) => {
+            dispatch(createResident(values)).then((res: { payload: { status: number; }; }) => {
               if (res.payload.status === 201) {
                 form.resetFields();
-                setIsModalEditOpen(false);
+                setIsModalAddOpen(false);
                 handleSubmit()
               }
             });
@@ -51,37 +54,7 @@ const ResidentFormEdit = ({
     >
       <Form
         form={form}
-        fields={[
-          {
-            name: ["fullname"],
-            value: item.fullname,
-          },
-          {
-            name: ["email"],
-            value: item.email,
-          },
-          {
-            name: ["phone"],
-            value: item.phone,
-          },
-          {
-            name: ["status"],
-            value: item.status,
-          },
-          {
-            name: ["gender"],
-            value: item.gender,
-          },
-          {
-            name: ["dateOfBirth"],
-            value: dayjs(item.dateOfBirth, "YYYY/MM/DD"),
-          },
-          {
-            name: ["address"],
-            value: item.address,
-          },
-        ]}
-        name="edit-customer-form"
+        name="create-customer-form"
         layout="vertical"
         autoComplete="off"
         style={{
@@ -89,7 +62,7 @@ const ResidentFormEdit = ({
         }}
       >
         <Form.Item
-          name="fullname"
+          name="fullName"
           label="Full Name"
           rules={[
             {
@@ -100,11 +73,7 @@ const ResidentFormEdit = ({
             },
           ]}
         >
-          <Input
-            value={item.fullname}
-            placeholder="Full name"
-            className="custom-input"
-          />
+          <Input placeholder="Full name" className="custom-input" />
         </Form.Item>
         <Form.Item
           name="email"
@@ -135,12 +104,22 @@ const ResidentFormEdit = ({
           >
             <Input placeholder="Phone" className="custom-input" />
           </Form.Item>
-          <Form.Item name="status" label="Status">
-            <Select
-              options={options}
-              style={{
-                width: 120,
-              }}
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                type: "string",
+                whitespace: true,
+                required: true,
+                message: "Password is required.",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Password"
+              type="password"
+              className="custom-input"
             />
           </Form.Item>
         </Space>
@@ -193,4 +172,4 @@ const ResidentFormEdit = ({
   );
 };
 
-export default ResidentFormEdit;
+export default ResidentFormAdd;

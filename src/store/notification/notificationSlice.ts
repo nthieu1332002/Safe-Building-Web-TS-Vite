@@ -1,19 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import notificationAPI from "../../config/api/notification/notificationAPI";
+import { Notification } from "../../types/notification.type";
 
 const { sendNotificationAPI, sendMultiNotificationAPI } = notificationAPI;
 
+interface NotificationState {
+    loading: boolean,
+    error?: string,
+    page: number,
+    size: number,
+    totalPage: number,
+}
+
+const initialState: NotificationState = {
+    loading: false,
+    error: '',
+    page: 1,
+    size: 10,
+    totalPage: 0,
+}
+
 const notificationSlice = createSlice({
     name: "notification",
-    initialState: {
-        notifications: [],
-        loading: false,
-        error: '',
-        page: 1,
-        size: 10,
-        totalPage: 0,
-    },
+    initialState,
     reducers: {
 
     },
@@ -44,14 +54,14 @@ const notificationSlice = createSlice({
 
 export const sendNotification = createAsyncThunk(
     "notification/sendNotification",
-    async (data, { rejectWithValue }) => {
+    async (data: Notification, { rejectWithValue }) => {
         try {
             const res = await sendNotificationAPI(data);
             if (res.status === 200) {
                 toast.success(res.data)
                 return res
             }
-        } catch (err) {
+        } catch (err: any) {
             return rejectWithValue(err.response.data)
         }
     }
@@ -59,14 +69,14 @@ export const sendNotification = createAsyncThunk(
 
 export const sendMultiNotification = createAsyncThunk(
     "notification/sendMultiNotification",
-    async (data, { rejectWithValue }) => {
+    async (data: Notification, { rejectWithValue }) => {
         try {
             const res = await sendMultiNotificationAPI(data);
             if (res.status === 200) {
                 toast.success(res.data)
                 return res
             }
-        } catch (err) {
+        } catch (err: any) {
             return rejectWithValue(err.response.data)
         }
     }
