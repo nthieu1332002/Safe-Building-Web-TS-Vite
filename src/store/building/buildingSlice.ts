@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import buildingAPI from "../../config/api/building/buildingAPI.js"
 import { Building, CreateBuildingRequest } from "../../types/building.type";
-import { FlatList } from "../../types/flatList.type";
+import { FlatList } from "../../types/flat.type.js";
 import { Search } from "../../types/search.type.js";
 
 const { getBuildingFilterAPI, createBuildingAPI, getFlatListByBuildingIdAPI } = buildingAPI;
@@ -16,9 +16,9 @@ interface BuildingState {
     page: number,
     size: number,
     totalPage: number,
-    searchKey: string,
-    sortBy: string,
-    order: string,
+    searchKey?: string,
+    sortBy?: string,
+    order?: string,
 }
 
 const initialState: BuildingState = {

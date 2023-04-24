@@ -1,17 +1,19 @@
 import React from "react"
 import { Form, Input, Select } from "antd";
 import { adminStatus, customerStatus, flatStatus } from "./types";
+import { Admin } from "../types/admin.type";
 
-interface EditableCellProps {
+interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
   dataIndex: string,
-  title: string,
-  inputType: string,
+  title: any,
+  inputType: string;
   tableName: string,
-  record: any; // replace 
+  record: Admin;
   index: number;
   children: React.ReactNode,
 }
+
 
 export const EditableCell = ({
   editing,

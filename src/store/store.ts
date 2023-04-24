@@ -5,7 +5,7 @@ import serviceSlice from "./service/serviceSlice";
 import userSlice from "./user/userSlice";
 import flatSlice from "./flat/flatSlice";
 import buildingSlice from "./building/buildingSlice";
-import adminSlice from "./admin/adminSlice ";
+import adminSlice from "./admin/adminSlice";
 import dashboardSlice from "./dashboard/dashboardSlice";
 import billSlice from "./bill/billSlice";
 import notificationSlice from "./notification/notificationSlice";

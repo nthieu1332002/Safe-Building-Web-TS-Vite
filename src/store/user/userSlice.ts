@@ -1,28 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import userAPI, { LoginRequest }  from "../../config/api/user/userAPI"
+import userAPI, { LoginRequest } from "../../config/api/user/userAPI"
 import { toast } from "react-toastify";
 
 const { loginAPI } = userAPI;
 
-const userToken = Cookies.get('userToken')
-    ? Cookies.get('userToken')
-    : null
+const userToken = Cookies.get('userToken') ?? null;
 
-const refreshToken = Cookies.get('refreshToken')
-    ? Cookies.get('refreshToken')
-    : null
+const refreshToken = Cookies.get('refreshToken') ?? null;
 
-// const users = JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : null
-const users = JSON.parse(localStorage.getItem('users') || 'null') as null | unknown;
+type Users = any;
+
+const users: Users = JSON.parse(localStorage.getItem('users') ?? 'null');
+
+interface UserState {
+    users: Users;
+    userToken: string | null;
+    refreshToken: string | null;
+    loading: boolean;
+}
+
+const initialState: UserState = {
+    users: users,
+    userToken,
+    refreshToken,
+    loading: false,
+}
+
 const userSlice = createSlice({
     name: "user",
-    initialState: {
-        users: users,
-        userToken,
-        refreshToken,
-        loading: false,
-    },
+    initialState,
     reducers: {
         logout: (state) => {
             console.log("cookie remove");
@@ -37,8 +44,8 @@ const userSlice = createSlice({
                 state.loading = true;
             })
             .addCase(login.fulfilled, (state, action) => {
-                Cookies.set('userToken', action.payload.data.tokenResponse.accessToken, { expires: 1/48, path: '' })
-                Cookies.set('refreshToken', action.payload.data.tokenResponse.refreshToken, { expires: 1/24, path: '' })
+                Cookies.set('userToken', action.payload.data.tokenResponse.accessToken, { expires: 1 / 48, path: '' })
+                Cookies.set('refreshToken', action.payload.data.tokenResponse.refreshToken, { expires: 1 / 24, path: '' })
                 localStorage.setItem('users', JSON.stringify(action.payload.data));
                 state.users = action.payload.data
                 state.userToken = action.payload.data.tokenResponse.accessToken

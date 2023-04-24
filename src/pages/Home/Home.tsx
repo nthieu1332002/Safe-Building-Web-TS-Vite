@@ -18,6 +18,9 @@ import {
 } from "../../store/dashboard/dashboardSlice";
 import Loading from "../../components/Loading/Loading";
 import ServiceChart from "../../components/Chart/ServiceChart";
+import { useAppDispatch } from "../../store/store";
+import { RootState } from "../../store/store";
+import { DashBoard } from "../../types/dashboard.type";
 
 const { getRevenueAPI, getContractAPI } = dashboardAPI;
 
@@ -34,13 +37,13 @@ const Home = () => {
     serviceMonth,
     serviceYear,
     serviceLoading,
-  } = useSelector((state) => state.dashboard);
-  const { users } = useSelector((state) => state.user);
-  const [revenue, setRevenue] = useState();
-  const [contract, setContract] = useState();
-  const [serviceByMonthYear, setServiceByMonthYear] = useState(null);
-  const [revenueByYear, setRevenueByYear] = useState(null);
-  const [contractByYear, setContractByYear] = useState(null);
+  } = useSelector((state: RootState) => state.dashboard);
+  const { users } = useSelector((state: RootState) => state.user);
+  const [revenue, setRevenue] = useState<any>();
+  const [contract, setContract] = useState<any>();
+  const [serviceByMonthYear, setServiceByMonthYear] = useState<DashBoard[]>();
+  const [revenueByYear, setRevenueByYear] = useState<DashBoard[]>();
+  const [contractByYear, setContractByYear] = useState<DashBoard[]>();
   console.log("serviceList", serviceList);
   const fetchRevenue = () => {
     getRevenueAPI()
@@ -91,7 +94,7 @@ const Home = () => {
     dispatch(getContractByYear({ year: contractYear }));
   };
 
-  const handleChangeContractYear = (value) => {
+  const handleChangeContractYear = (value: number) => {
     dispatch(changeContractYear(value));
   };
   useEffect(() => {
@@ -102,7 +105,7 @@ const Home = () => {
     dispatch(getRevenueByYear({ year: revenueYear }));
   };
 
-  const handleChangeRevenueYear = (value) => {
+  const handleChangeRevenueYear = (value: number) => {
     dispatch(changeRevenueYear(value));
   };
   useEffect(() => {
@@ -112,10 +115,10 @@ const Home = () => {
   const fetchServiceByMonthYear = () => {
     dispatch(getServiceByMonthYear({ month: serviceMonth, year: serviceYear }));
   };
-  const handleChangeServiceMonth = (value) => {
+  const handleChangeServiceMonth = (value: number) => {
     dispatch(changeServiceMonth(value));
   };
-  const handleChangeServiceYear = (value) => {
+  const handleChangeServiceYear = (value: number) => {
     dispatch(changeServiceYear(value));
   };
 
@@ -125,7 +128,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="page-title">
-        <h1>Hello {users?.fullname} 👋</h1>
+        <h1>Hello {users?.fullname ?? 'Unknown user'} 👋</h1>
         <p>Let's check stats today!</p>
       </div>
       <div className="statistic-wrapper">
@@ -134,7 +137,7 @@ const Home = () => {
             <h5 className="card-title">Total revenue</h5>
             <div className="card-content">
               <div className="value">
-                {new Intl.NumberFormat("en-Us").format(revenue?.total)} VND
+                {revenue && new Intl.NumberFormat("en-Us").format(revenue.total)} VND
               </div>
               <div className="value-change">
                 {revenue?.status === "Increase" ? (

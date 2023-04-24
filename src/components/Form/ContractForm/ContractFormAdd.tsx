@@ -17,7 +17,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { getFlatByBuilding } from "../../../store/building/buildingSlice";
 import { RootState } from "../../../store/store";
 import { ResidentDetail } from "../../../types/resident.type";
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
+import type { UploadFile } from 'antd/es/upload/interface'
 
 interface ResidentFormAddContractProps {
   isModalOpen: boolean;

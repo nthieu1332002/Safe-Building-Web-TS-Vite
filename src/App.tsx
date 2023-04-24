@@ -1,34 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import ProtectedRoutes from './config/ProtectedRoutes'
+import PrivateRoutes from "./config/PrivateRoutes"
+import Login from "./pages/Login/Login"
+import Home from "./pages/Home/Home"
+import Building from "./pages/Building/Building"
+import Admin from "./pages/Admin/Admin"
+import Resident from "./pages/Resident/Resident"
+import Flat from "./pages/Flat/Flat"
+import Service from "./pages/Service/Service"
+import Contract from "./pages/Contract/Contract"
+import GuestPage from './pages/GuestPage/GuestPage'
+import Layout from './pages/Layout/Layout'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+import Error from './pages/Error/Error'
+import Bill from './pages/Bill/Bill'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<GuestPage />}>
+              <Route path="/login" element={<Login />}></Route>
+            </Route>
+          </Route>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Layout />} >
+              <Route index element={<Home />}></Route>
+              <Route path="/building" element={<Building />}></Route>
+              <Route path="/admin" element={<Admin />}></Route>
+              <Route path="/resident" element={<Resident />}></Route>
+              <Route path="/bill" element={<Bill />}></Route>
+              <Route path="/flat" element={<Flat />}></Route>
+              <Route path="/service" element={<Service />}></Route>
+              <Route path="/contract" element={<Contract />}></Route>
+            </Route>
+          </Route>
+          <Route path="*" element={<Error/>} />
+
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   )
 }
 
