@@ -12,7 +12,7 @@ import { EditableCell } from "../../ultis/EditableCell";
 
 import "./style.scss";
 import { RootState, useAppDispatch } from "../../store/store";
-import { Admin } from "../../types/admin.type";
+import { IAdmin } from "../../types/admin.type";
 import { ColumnsType } from "antd/es/table";
 
 const Admin = () => {
@@ -24,7 +24,7 @@ const Admin = () => {
   const [currentPage, setCurrentPage] = useState(page);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [data, setData] = useState<Admin[]>(adminAccounts);
+  const [data, setData] = useState<IAdmin[]>(adminAccounts);
   useEffect(() => {
     const getAdminAccountList = () => {
       dispatch(getAdminAccount({ page: currentPage, size }));
@@ -37,8 +37,8 @@ const Admin = () => {
   }, [adminAccounts]);
 
   const [editingKey, setEditingKey] = useState("");
-  const isEditing = (record: Admin) => record.id === editingKey;
-  const edit = (record: Partial<Admin> & { id: React.Key }) => {
+  const isEditing = (record: IAdmin) => record.id === editingKey;
+  const edit = (record: Partial<IAdmin> & { id: React.Key }) => {
     form.setFieldsValue({
       ...record,
     });
@@ -49,7 +49,7 @@ const Admin = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Admin;
+      const row = (await form.validateFields()) as IAdmin;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.id);
       if (index > -1) {
@@ -69,7 +69,7 @@ const Admin = () => {
       console.log("Validate Failed:", errInfo);
     }
   };
-  const columns: ColumnsType<Admin> = [
+  const columns: ColumnsType<IAdmin> = [
     {
       title: "#",
       key: "index",
@@ -81,21 +81,18 @@ const Admin = () => {
       key: "fullname",
       sorter: (a, b) => a.fullname.localeCompare(b.fullname),
       render: (text) => <b>{text}</b>,
-      editable: true,
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
       render: (text) => <b>{text}</b>,
-      editable: true,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
       render: (text) => <b>{text}</b>,
-      editable: true,
     },
     {
       title: "Status",
@@ -120,13 +117,12 @@ const Admin = () => {
           })}
         </>
       ),
-      editable: true,
     },
     {
       title: "Action",
       align: "center",
       dataIndex: "action",
-      render: (_: any, record: ) => {
+      render: (_: any, record: IAdmin) => {
         return (
           <CustomAction
             editable={isEditing(record)}
@@ -138,22 +134,22 @@ const Admin = () => {
       },
     },
   ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: Admin) => ({
-        record,
-        tableName: "admin",
-        inputType: col.dataIndex === "status" ? "status" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  // const mergedColumns = columns.map((col) => {
+  //   if (!col.editable) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record: IAdmin) => ({
+  //       record,
+  //       tableName: "admin",
+  //       inputType: col.dataIndex === "status" ? "status" : "text",
+  //       dataIndex: col.dataIndex,
+  //       title: col.title,
+  //       editing: isEditing(record),
+  //     }),
+  //   };
+  // });
 
   const onChange = (page: number) => {
     setCurrentPage(page);
@@ -193,7 +189,7 @@ const Admin = () => {
                 },
               }}
               dataSource={data}
-              columns={mergedColumns}
+              columns={columns}
               rowClassName="editable-row"
               pagination={false}
               loading={loading}

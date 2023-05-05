@@ -1,13 +1,13 @@
 import api from "./apiConfig";
-import { Search } from "../../../types/search.type"
-import { CreateBuildingRequest } from "../../../types/building.type";
+import { ISearch } from "../../../types/search.type"
+import { ICreateBuildingRequest } from "../../../types/building.type";
 
 const buildingAPI = {
-    getBuildingFilterAPI: ({page, size, searchKey, sortBy, order }: Search) => {
+    getBuildingFilterAPI: ({page, size, searchKey, sortBy, order }: ISearch) => {
         const url = `/buildings/get-building-list?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
         return api.get(url);
     },
-    createBuildingAPI: (data: CreateBuildingRequest) => {
+    createBuildingAPI: (data: ICreateBuildingRequest) => {
         const url = `/buildings/add-building`;
         const body = {
             ...data,

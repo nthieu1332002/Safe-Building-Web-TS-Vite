@@ -44,12 +44,13 @@ const userSlice = createSlice({
                 state.loading = true;
             })
             .addCase(login.fulfilled, (state, action) => {
-                Cookies.set('userToken', action.payload.data.tokenResponse.accessToken, { expires: 1 / 48, path: '' })
-                Cookies.set('refreshToken', action.payload.data.tokenResponse.refreshToken, { expires: 1 / 24, path: '' })
-                localStorage.setItem('users', JSON.stringify(action.payload.data));
-                state.users = action.payload.data
-                state.userToken = action.payload.data.tokenResponse.accessToken
-                state.refreshToken = action.payload.data.tokenResponse.refreshToken
+                console.log("action.payload", action.payload);
+                Cookies.set('userToken', action.payload.data.data.tokenResponse.accessToken, { expires: 1 / 48, path: '' })
+                Cookies.set('refreshToken', action.payload.data.data.tokenResponse.refreshToken, { expires: 1 / 24, path: '' })
+                localStorage.setItem('users', JSON.stringify(action.payload.data.data));
+                state.users = action.payload.data.data
+                state.userToken = action.payload.data.data.tokenResponse.accessToken
+                state.refreshToken = action.payload.data.data.tokenResponse.refreshToken
                 state.loading = false
             })
             .addCase(login.rejected, (state) => {
@@ -62,6 +63,7 @@ const userSlice = createSlice({
 export const login = createAsyncThunk(
     "user/login",
     async (data: LoginRequest, { rejectWithValue }) => {
+        console.log("data lg", data);
         try {
             const res = await loginAPI(data)
             if (res.status === 200) {

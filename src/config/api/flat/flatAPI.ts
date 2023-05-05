@@ -1,13 +1,13 @@
-import { CreateFlatRequest } from "../../../types/flat.type";
-import { Search } from "../../../types/search.type";
+import { ICreateFlatRequest } from "../../../types/flat.type";
+import { ISearch } from "../../../types/search.type";
 import api from "./apiConfig";
 
 const flatAPI = {
-    getFlatAPI: ({ page, size }: Search) => {
+    getFlatAPI: ({ page, size }: ISearch) => {
         const url =`/flats?page=${page}&size=${size}`;
         return api.get(url)
     },
-    createFlatAPI: (data: CreateFlatRequest) => {
+    createFlatAPI: (data: ICreateFlatRequest) => {
         const url = `/flats/create-flat`;
         const body = {
             ...data,

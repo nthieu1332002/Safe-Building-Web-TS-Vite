@@ -1,7 +1,7 @@
 import { Tooltip } from "antd";
 import React, { useState } from "react";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
-import { DashBoard } from "../../types/dashboard.type";
+import { IDashBoard } from "../../types/dashboard.type";
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180;
   const {
@@ -80,7 +80,7 @@ const renderActiveShape = (props: any) => {
 };
 
 interface ServiceChartProps {
-  data: DashBoard[] | undefined
+  data: IDashBoard[] | undefined
 }
 
 const ServiceChart = ({ data }: ServiceChartProps) => {

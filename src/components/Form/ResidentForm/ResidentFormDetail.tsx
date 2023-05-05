@@ -16,16 +16,16 @@ import { AiOutlineDelete } from "react-icons/ai";
 import ContractFormAdd from "../ContractForm/ContractFormAdd";
 import { getAllBuilding } from "../../../store/building/buildingSlice";
 import { deleteContractById } from "../../../store/contract/contractSlice";
-import { ResidentDetail } from "../../../types/resident.type";
+import { IResidentDetail } from "../../../types/resident.type";
 
 const { Text } = Typography;
-const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
+const firebaseEndpoint = import.meta.env.VITE_FIREBASE_ENDPOINT;
 
 interface ResidentFormDetailProps {
   dispatch: any;
   onClose: () => void;
   open: boolean;
-  customer: ResidentDetail | null;
+  customer: IResidentDetail | null;
   onDelete: () => void;
 }
 

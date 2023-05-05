@@ -1,10 +1,10 @@
-export interface FlatList {
+export interface IFlatList {
     id: string;
     roomNumber: number;
     value: number;
 }
 
-export interface Flat {
+export interface IFlat {
     id: string;
     buildingName: string;
     roomNumber: number;
@@ -13,12 +13,12 @@ export interface Flat {
     status: string;
 }
 
-export interface FlatType {
+export interface IFlatType {
     id: string;
     name: string;
 }
 
-export interface CreateFlatRequest {
+export interface ICreateFlatRequest {
     roomNumber: number;
     buildingId: string;
     price: number;

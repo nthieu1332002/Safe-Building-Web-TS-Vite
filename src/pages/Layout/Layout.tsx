@@ -1,10 +1,8 @@
-import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import { HiOutlineLogout } from "react-icons/hi";
 import brand from "../../assets/images/brand-x.png";
 import "./style.scss";
-import { useDispatch } from "react-redux";
 import { logout } from "../../store/user/userSlice";
 import { useAppDispatch } from "../../store/store";
 

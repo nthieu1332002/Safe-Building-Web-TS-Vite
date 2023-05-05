@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import billAPI from "../../config/api/bill/billAPI";
-import { Bill, BillDetail, CreateBillRequest, CreateMonthlyBillRequest } from "../../types/bill.type";
+import { IBill, IBillDetail, ICreateBillRequest, ICreateMonthlyBillRequest } from "../../types/bill.type";
 import { Search } from "../../types/search.type";
 
 const { getBillAPI, createBillAPI, getBillByIdAPI, getFileExcelAPI, createMonthlyBillAPI } = billAPI;
 
 interface BillState {
-  bills: Bill[],
-  billDetail: BillDetail[],
+  bills: IBill[],
+  billDetail: IBillDetail[],
   loading: boolean,
   error?: string,
   page: number,
@@ -86,7 +86,7 @@ export const getBill = createAsyncThunk(
 
 export const createBill = createAsyncThunk(
   "bill/createBill",
-  async (data: CreateBillRequest, { rejectWithValue }) => {
+  async (data: ICreateBillRequest, { rejectWithValue }) => {
     try {
       const res = await createBillAPI(data);
       if (res.status === 201) {
@@ -101,7 +101,7 @@ export const createBill = createAsyncThunk(
 
 export const createMonthlyBill = createAsyncThunk(
     "bill/createMonthlyBill",
-    async (data: CreateMonthlyBillRequest, { rejectWithValue }) => {
+    async (data: ICreateMonthlyBillRequest, { rejectWithValue }) => {
       try {
         const res = await createMonthlyBillAPI(data);
         if (res.status === 201) {

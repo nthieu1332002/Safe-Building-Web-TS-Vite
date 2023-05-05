@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import contractAPI from "../../config/api/contract/contractAPI";
-import { Contract, CreateContractRequest } from "../../types/contract.type"
-import { Search } from "../../types/search.type"
-const { getContractAPI, postContractAPI, deleteContractAPI, editContractAPI } = contractAPI;
+import { IContract, ICreateContractRequest } from "../../types/contract.type"
+import { ISearch } from "../../types/search.type"
+const { getContractAPI, postContractAPI, deleteContractAPI } = contractAPI;
 
 interface ContractState {
-    contracts: Contract[];
+    contracts: IContract[];
     loading: boolean;
     error?: string;
     page: number;
@@ -66,7 +66,7 @@ const contractSlice = createSlice({
 
 export const getContract = createAsyncThunk(
     "contract/getContract",
-    async (data: Search, { rejectWithValue }) => {
+    async (data: ISearch, { rejectWithValue }) => {
         try {
             const res = await getContractAPI(data);
             return res;
@@ -80,25 +80,9 @@ export const getContract = createAsyncThunk(
 
 export const postContract = createAsyncThunk(
     "contract/postContract",
-    async (data: CreateContractRequest, { rejectWithValue }) => {
+    async (data: ICreateContractRequest, { rejectWithValue }) => {
         try {
             const res = await postContractAPI(data);
-            if (res.status === 201) {
-                toast.success(res.data.message)
-                return res
-            }
-        } catch (err: any) {
-            return rejectWithValue(err.response.data)
-        }
-    }
-);
-
-
-export const editContract = createAsyncThunk(
-    "contract/editContract",
-    async (data, { rejectWithValue }) => {
-        try {
-            const res = await editContractAPI(data);
             if (res.status === 201) {
                 toast.success(res.data.message)
                 return res

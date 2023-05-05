@@ -1,13 +1,13 @@
-import { CreateBillRequest, CreateMonthlyBillRequest } from "../../../types/bill.type";
-import { Search } from "../../../types/search.type";
+import { ICreateBillRequest, ICreateMonthlyBillRequest } from "../../../types/bill.type";
+import { ISearch } from "../../../types/search.type";
 import api from "./apiConfig";
 
 const billAPI = {
-  getBillAPI: ({ page, size }: Search) => {
+  getBillAPI: ({ page, size }: ISearch) => {
     const url = `/bills?page=${page}&size=${size}`;
     return api.get(url);
   },
-  createBillAPI: (data: CreateBillRequest) => {
+  createBillAPI: (data: ICreateBillRequest) => {
     const url = `/bills`;
     const body = {
       ...data,
@@ -24,7 +24,7 @@ const billAPI = {
       responseType: "blob",
     });
   },
-  createMonthlyBillAPI: (data: CreateMonthlyBillRequest) => {
+  createMonthlyBillAPI: (data: ICreateMonthlyBillRequest) => {
     const url = `/rent-contract/upload-excel-file`;
     const body = {
       ...data,

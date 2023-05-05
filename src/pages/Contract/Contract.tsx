@@ -1,6 +1,6 @@
-import { Table, Tag, Form, Typography } from "antd";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Table, Tag, Typography } from "antd";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import moment from "moment";
 import { FilePdfTwoTone } from "@ant-design/icons";
@@ -18,10 +18,10 @@ import { rentContractStatus, sortOption } from "../../ultis/types";
 import CustomAction from "../../components/CustomAction/CustomAction";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
 import { RootState, useAppDispatch } from "../../store/store";
-import { Contract } from "../../types/contract.type";
+import { IContract } from "../../types/contract.type";
 const { Text } = Typography;
 
-const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
+const firebaseEndpoint = import.meta.env.VITE_FIREBASE_ENDPOINT;
 const Contract = () => {
   const dispatch = useAppDispatch();
   const {
@@ -62,7 +62,7 @@ const Contract = () => {
       getContractList();
     });
   };
-  const columns: ColumnsType<Contract> = [
+  const columns: ColumnsType<IContract> = [
     {
       title: "#",
       key: "index",
@@ -223,7 +223,7 @@ const Contract = () => {
             />
           </div>
         </div>
-        <Table<Contract>
+        <Table<IContract>
           dataSource={contracts}
           columns={columns}
           pagination={false}

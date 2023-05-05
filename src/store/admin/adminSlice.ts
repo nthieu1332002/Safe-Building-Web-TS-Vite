@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import adminAPI from "../../config/api/admin/adminAPI.js"
-import { Admin } from "../../types/admin.type.js";
+import { IAdmin } from "../../types/admin.type.js";
 import { Search } from "../../types/search.type.js";
 
 const { getAdminAccountAPI } = adminAPI;
 
 interface AdminState {
-    adminAccounts: Admin[],
+    adminAccounts: IAdmin[],
     loading: boolean,
     error?: string,
     page: number,

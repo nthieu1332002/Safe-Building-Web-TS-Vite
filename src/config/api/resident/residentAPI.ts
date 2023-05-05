@@ -1,13 +1,13 @@
-import { CreateResidentRequest, UpdateResidentRequest } from "../../../types/resident.type";
-import { Search } from "../../../types/search.type";
+import { ICreateResidentRequest, IUpdateResidentRequest } from "../../../types/resident.type";
+import { ISearch } from "../../../types/search.type";
 import api from "./apiConfig";
 
 const residentAPI = {
-    getResidentAPI: ({ page, size, searchKey, sortBy, order }: Search) => {
+    getResidentAPI: ({ page, size, searchKey, sortBy, order }: ISearch) => {
         const url = `/customers/filter?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
         return api.get(url)
     },
-    createResidentAccountAPI: (data: CreateResidentRequest) => {
+    createResidentAccountAPI: (data: ICreateResidentRequest) => {
         const url = `/customers/create-customer`;
         const body = {
             ...data,
@@ -18,7 +18,7 @@ const residentAPI = {
         const url = `/customers/${id}`;
         return api.get(url)
     },
-    updateResidentAccountAPI: (data: UpdateResidentRequest) => {
+    updateResidentAccountAPI: (data: IUpdateResidentRequest) => {
         const url = `/customers/update-customer`;
         const body = {
             ...data,

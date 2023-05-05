@@ -21,7 +21,7 @@ import NotiFormAdd from "../../components/Form/NotiForm/NotiFormAdd";
 import { toast } from "react-toastify";
 import { RootState, useAppDispatch } from "../../store/store";
 import { ColumnsType } from "antd/es/table";
-import { Resident, ResidentDetail } from "../../types/resident.type";
+import { IResident } from "../../types/resident.type";
 
 const Resident = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const Resident = () => {
   const [sortByString, setSortByString] = useState(sortBy);
   const [sortByOrder, setSortByOrder] = useState(order);
 
-  const columns: ColumnsType<Resident> = [
+  const columns: ColumnsType<IResident> = [
     {
       title: "#",
       key: "index",
@@ -136,11 +136,11 @@ const Resident = () => {
     dispatch(getResidentById({ id }));
   };
 
-  const onClickEdit = (record: Resident) => {
+  const onClickEdit = (record: IResident) => {
     fetchResidentById(record.id);
     setIsModalEditOpen(true);
   };
-  const onClickDetail = (record: Resident) => {
+  const onClickDetail = (record: IResident) => {
     fetchResidentById(record.id);
     setIsModalDetailOpen(true);
   };
@@ -150,7 +150,7 @@ const Resident = () => {
       setIsModalDetailOpen(true);
     }
   };
-  const onClickNoti = (record: Resident) => {
+  const onClickNoti = (record: IResident) => {
     setFullname(record.fullname);
     setToken(record.devices[0]?.token);
     setIsNotiOpen(true);
@@ -220,7 +220,7 @@ const Resident = () => {
               </CustomButton>
             </div>
           </div>
-          <Table<Resident>
+          <Table<IResident>
             rowKey={(record) => record.id}
             rowSelection={{
               type: "checkbox",

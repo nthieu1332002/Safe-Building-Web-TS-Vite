@@ -1,4 +1,4 @@
-export interface Contract {
+export interface IContract {
     id: string;
     buildingName: string;
     roomNumber: number;
@@ -9,7 +9,7 @@ export interface Contract {
     status: string;
 }
 
-export interface ContractDetail {
+export interface IContractDetail {
     id: string;
     link: string;
     roomNumber: number;
@@ -19,7 +19,7 @@ export interface ContractDetail {
     buildAddress: string;
 }
 
-export interface CreateContractRequest {
+export interface ICreateContractRequest {
     files: File;
     requestContract: string;
     deviceTokens: string;

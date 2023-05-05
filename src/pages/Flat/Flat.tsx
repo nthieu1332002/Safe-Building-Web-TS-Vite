@@ -11,7 +11,7 @@ import { getFlat, getFlatType } from "../../store/flat/flatSlice";
 import { flatStatus } from "../../ultis/types";
 import "./style.scss";
 import { RootState, useAppDispatch } from "../../store/store";
-import { Flat } from "../../types/flat.type";
+import { IFlat } from "../../types/flat.type";
 import { ColumnsType } from "antd/es/table";
 
 const Flat = () => {
@@ -23,7 +23,7 @@ const Flat = () => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
-  const columns: ColumnsType<Flat> = [
+  const columns: ColumnsType<IFlat> = [
     {
       title: "#",
       key: "index",
@@ -151,7 +151,7 @@ const Flat = () => {
             />
             <CustomButton onClick={handleAddNew}>Add new</CustomButton>
           </div>
-          <Table<Flat>
+          <Table<IFlat>
             // rowKey="citizenId"
             dataSource={flats}
             columns={columns}

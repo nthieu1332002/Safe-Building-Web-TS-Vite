@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CustomCard from "../../components/CustomCard/CustomCard";
 import { MdTrendingDown, MdTrendingUp } from "react-icons/md";
 import "./style.scss";
 import { Select, Space } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import dashboardAPI from "../../config/api/dashboard/dashboardAPI";
 import ContractChart from "../../components/Chart/ContractChart";
 import RevenueChart from "../../components/Chart/RevenueChart";
@@ -20,7 +20,7 @@ import Loading from "../../components/Loading/Loading";
 import ServiceChart from "../../components/Chart/ServiceChart";
 import { useAppDispatch } from "../../store/store";
 import { RootState } from "../../store/store";
-import { DashBoard } from "../../types/dashboard.type";
+import { IDashBoard } from "../../types/dashboard.type";
 
 const { getRevenueAPI, getContractAPI } = dashboardAPI;
 
@@ -41,9 +41,9 @@ const Home = () => {
   const { users } = useSelector((state: RootState) => state.user);
   const [revenue, setRevenue] = useState<any>();
   const [contract, setContract] = useState<any>();
-  const [serviceByMonthYear, setServiceByMonthYear] = useState<DashBoard[]>();
-  const [revenueByYear, setRevenueByYear] = useState<DashBoard[]>();
-  const [contractByYear, setContractByYear] = useState<DashBoard[]>();
+  const [serviceByMonthYear, setServiceByMonthYear] = useState<IDashBoard[]>();
+  const [revenueByYear, setRevenueByYear] = useState<IDashBoard[]>();
+  const [contractByYear, setContractByYear] = useState<IDashBoard[]>();
   console.log("serviceList", serviceList);
   const fetchRevenue = () => {
     getRevenueAPI()

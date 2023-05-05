@@ -1,4 +1,4 @@
-export interface Service {
+export interface IService {
     id: string;
     name: string;
     price: number;
@@ -6,7 +6,7 @@ export interface Service {
     status: string;
 }
 
-export interface CreateServiceRequest {
+export interface ICreateServiceRequest {
     icon: File;
     requestObject: string;
 }

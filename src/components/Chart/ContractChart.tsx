@@ -7,10 +7,10 @@ import {
   AreaChart,
   Text,
 } from "recharts";
-import { DashBoard } from "../../types/dashboard.type";
+import { IDashBoard } from "../../types/dashboard.type";
 
 interface ContractChartProps {
-  data: DashBoard[] | undefined;
+  data: IDashBoard[] | undefined;
 }
 
 const ContractChart = ({ data }: ContractChartProps) => {

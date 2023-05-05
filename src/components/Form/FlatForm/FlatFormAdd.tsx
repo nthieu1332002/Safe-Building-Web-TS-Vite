@@ -1,11 +1,11 @@
-import { Form, Input, InputNumber, Modal, Radio, Select, Space } from "antd";
+import { Form, InputNumber, Modal, Radio, Select, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { createFlat } from "../../../store/flat/flatSlice";
 import { flatStatus } from "../../../ultis/types";
-import { FlatType } from "../../../types/flat.type";
-import { RootState, useAppDispatch } from "../../../store/store";
+import { IFlatType } from "../../../types/flat.type";
+import { RootState } from "../../../store/store";
 
 interface FlatFormAddProps {
   dispatch: any;
@@ -14,7 +14,7 @@ interface FlatFormAddProps {
   handleCancel: () => void;
   setIsModalAddOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: () => void;
-  flatType: FlatType[];
+  flatType: IFlatType[];
 }
 
 const FlatFormAdd = ({

@@ -11,7 +11,7 @@ import "./style.scss";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
 import BuildingFormAdd from "../../components/Form/BuildingForm/BuildingFormAdd";
 import { RootState, useAppDispatch } from "../../store/store";
-import { Building } from "../../types/building.type";
+import { IBuilding } from "../../types/building.type";
 import { ColumnsType } from "antd/es/table";
 const { Text } = Typography;
 
@@ -35,7 +35,7 @@ const Building = () => {
   const [sortByString, setSortByString] = useState(sortBy);
   const [sortByOrder, setSortByOrder] = useState(order);
   const [ellipsis, setEllipsis] = useState(true);
-  const columns: ColumnsType<Building> = [
+  const columns: ColumnsType<IBuilding> = [
     {
       title: "#",
       key: "index",
@@ -160,7 +160,7 @@ const Building = () => {
             </div>
             <CustomButton onClick={handleAddNew}>Add new</CustomButton>
           </div>
-          <Table<Building>
+          <Table<IBuilding>
             // rowKey="id"
             dataSource={buildings}
             columns={columns}

@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import flatAPI from "../../config/api/flat/flatAPI.js"
-import { CreateFlatRequest, Flat, FlatType } from "../../types/flat.type.js";
-import { Search } from "../../types/search.type.js";
+import { ICreateFlatRequest, IFlat, IFlatType } from "../../types/flat.type.js";
+import { ISearch } from "../../types/search.type.js";
 
 const { getFlatAPI, createFlatAPI, getFlatTypeAPI } = flatAPI;
 
 interface FlatState {
-    flats: Flat[],
-    flatType: FlatType[],
+    flats: IFlat[],
+    flatType: IFlatType[],
     loading: boolean,
     error?: string,
     page: number,
@@ -75,7 +75,7 @@ const flatSlice = createSlice({
 
 export const getFlat = createAsyncThunk(
     "flat/getFlat",
-    async (data: Search, { rejectWithValue }) => {
+    async (data: ISearch, { rejectWithValue }) => {
         try {
             const res = await getFlatAPI(data);
             return res;
@@ -87,7 +87,7 @@ export const getFlat = createAsyncThunk(
 );
 export const createFlat = createAsyncThunk(
     "flat/createFlat",
-    async (data: CreateFlatRequest, { rejectWithValue }) => {
+    async (data: ICreateFlatRequest, { rejectWithValue }) => {
         try {
             const res = await createFlatAPI(data);
             if (res.status === 201) {

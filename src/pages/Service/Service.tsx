@@ -12,8 +12,7 @@ import "./style.scss";
 import ServiceFormAdd from "../../components/Form/ServiceForm/ServiceFormAdd";
 import { RootState, useAppDispatch } from "../../store/store";
 import { ColumnsType } from "antd/es/table";
-import { Service } from "../../types/service.type";
-const firebaseEndpoint = process.env.REACT_APP_FIREBASE_ENDPOINT;
+import { IService } from "../../types/service.type";
 
 const Service = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ const Service = () => {
   const [searchString, setSearchString] = useState(searchKey);
   const [sortByString, setSortByString] = useState(sortBy);
   const [sortByOrder, setSortByOrder] = useState(order);
-  const columns: ColumnsType<Service> = [
+  const columns: ColumnsType<IService> = [
     {
       title: "#",
       key: "index",

@@ -1,4 +1,4 @@
-export interface Notification {
+export interface INotification {
     title: string,
     body: string,
     token?: string,

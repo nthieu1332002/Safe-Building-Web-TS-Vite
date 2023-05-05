@@ -16,7 +16,7 @@ import { RiNewspaperLine } from "react-icons/ri";
 import "./style.scss";
 import BillFormMonthly from "../../components/Form/BillForm/BillFormMonthly";
 import { RootState, useAppDispatch } from "../../store/store";
-import { Bill } from "../../types/bill.type";
+import { IBill } from "../../types/bill.type";
 import { ColumnsType } from "antd/es/table";
 
 const Bill = () => {
@@ -28,7 +28,7 @@ const Bill = () => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalDetailOpen, setIsModalDetailOpen] = useState(false);
   const [isMonthlyModalOpen, setIsMonthlyModalOpen] = useState(false);
-  const columns:ColumnsType<Bill> = [
+  const columns:ColumnsType<IBill> = [
     {
       title: "#",
       key: "index",
@@ -105,7 +105,7 @@ const Bill = () => {
     },
   ];
 
-  const onClickDetail = (record: Bill) => {
+  const onClickDetail = (record: IBill) => {
     dispatch(getBillById({ id: record.id }));
     setIsModalDetailOpen(true);
   };
@@ -182,7 +182,7 @@ const Bill = () => {
               <CustomButton onClick={handleAddNew}>Add new</CustomButton>
             </div>
           </div>
-          <Table<Bill>
+          <Table<IBill>
             dataSource={bills}
             columns={columns}
             pagination={false}

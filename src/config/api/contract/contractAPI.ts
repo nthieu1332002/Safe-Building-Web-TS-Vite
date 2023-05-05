@@ -1,14 +1,14 @@
 import api from "./apiConfig";
-import { Search } from "../../../types/search.type"
-import { CreateContractRequest } from "../../../types/contract.type";
+import { ISearch } from "../../../types/search.type"
+import { ICreateContractRequest } from "../../../types/contract.type";
 // sample: 
 
 const contractAPI = {
-    getContractAPI: ({ page, size, searchKey, sortBy, order }: Search) => {
+    getContractAPI: ({ page, size, searchKey, sortBy, order }: ISearch) => {
         const url = `/rent-contracts?page=${page}&size=${size}&searchKey=${searchKey}&sortBy=${sortBy}&order=${order}`;
         return api.get(url)
     },
-    postContractAPI: (data: CreateContractRequest) => {
+    postContractAPI: (data: ICreateContractRequest) => {
         const url = `/rent-contracts/create-contract`;
         const body = {
             ...data
@@ -18,13 +18,6 @@ const contractAPI = {
     getContractByIdAPI: ({ id }: {id: string}) => {
         const url = `/rent-contracts/${id}`;
         return api.get(url)
-    },
-    editContractAPI: (data) => {
-        const url = `/rent-contracts/edit-contract`;
-        const body = {
-            ...data
-        }
-        return api.put(url, body);
     },
     deleteContractAPI: ({ id }: { id: string }) => {
         const url = `/rent-contracts/delete-contract/${id}`;

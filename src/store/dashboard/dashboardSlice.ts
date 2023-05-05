@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import dashboardAPI from "../../config/api/dashboard/dashboardAPI.js"
-import { DashBoard } from "../../types/dashboard.type.js";
+import { IDashBoard } from "../../types/dashboard.type.js";
 const { getContractByYearAPI, getRevenueByYearAPI, getServicesByMonthYearAPI } = dashboardAPI;
 
 interface DashboardState {
-    contractList: DashBoard[],
+    contractList: IDashBoard[],
     contractYear: number,
     contractLoading: boolean,
-    revenueList: DashBoard[],
+    revenueList: IDashBoard[],
     revenueYear: number,
     revenueLoading: boolean,
-    serviceList: DashBoard[],
+    serviceList: IDashBoard[],
     serviceMonth: number,
     serviceYear: number,
     serviceLoading: boolean,

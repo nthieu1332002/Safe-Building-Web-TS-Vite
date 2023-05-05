@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import notificationAPI from "../../config/api/notification/notificationAPI";
-import { Notification } from "../../types/notification.type";
+import { INotification } from "../../types/notification.type";
 
 const { sendNotificationAPI, sendMultiNotificationAPI } = notificationAPI;
 
@@ -54,7 +54,7 @@ const notificationSlice = createSlice({
 
 export const sendNotification = createAsyncThunk(
     "notification/sendNotification",
-    async (data: Notification, { rejectWithValue }) => {
+    async (data: INotification, { rejectWithValue }) => {
         try {
             const res = await sendNotificationAPI(data);
             if (res.status === 200) {
@@ -69,7 +69,7 @@ export const sendNotification = createAsyncThunk(
 
 export const sendMultiNotification = createAsyncThunk(
     "notification/sendMultiNotification",
-    async (data: Notification, { rejectWithValue }) => {
+    async (data: INotification, { rejectWithValue }) => {
         try {
             const res = await sendMultiNotificationAPI(data);
             if (res.status === 200) {

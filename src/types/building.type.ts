@@ -1,4 +1,4 @@
-export interface Building {
+export interface IBuilding {
     id: string;
     name: string;
     address: string;
@@ -6,7 +6,7 @@ export interface Building {
     status: string;
 }
 
-export interface CreateBuildingRequest {
+export interface ICreateBuildingRequest {
     name: string,
     address: string,
     status: string,

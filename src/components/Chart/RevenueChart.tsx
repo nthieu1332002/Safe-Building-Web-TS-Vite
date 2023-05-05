@@ -10,10 +10,10 @@ import {
   CartesianGrid,
   Line,
 } from "recharts";
-import { DashBoard } from "../../types/dashboard.type";
+import { IDashBoard } from "../../types/dashboard.type";
 
 interface RevenueChartProps {
-  data: DashBoard[] | undefined;
+  data: IDashBoard[] | undefined;
 }
 
 const RevenueChart = ({ data }: RevenueChartProps) => {

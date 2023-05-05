@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-
 import logo from "../../assets/images/brand-y.png";
 import { FcGoogle } from "react-icons/fc";
 import { Button, Form, Input } from "antd";
 import "./style.scss";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { useSelector } from "react-redux";
 import { login } from "../../store/user/userSlice";
-import { auth, provider } from "../../firebase-messaging-sw";
+import { auth, provider } from "../../firebase";
 import { RootState, useAppDispatch } from "../../store/store";
 
 const Login = () => {
@@ -18,6 +16,7 @@ const Login = () => {
   const handleSignInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((data) => {
+        console.log("data", data);
         dispatch(
           login({
             email: data.user?.email,

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { BillDetail } from "../../../types/bill.type";
+import { IBillDetail } from "../../../types/bill.type";
 
 interface BillFormDetailProps {
-  bill: BillDetail[];
+  bill: IBillDetail[];
   isModalOpen: boolean;
   handleCancel: () => void;
 }
@@ -14,7 +13,7 @@ const BillFormDetail = ({
   isModalOpen,
   handleCancel,
 }: BillFormDetailProps) => {
-  const columns: ColumnsType<BillDetail> = [
+  const columns: ColumnsType<IBillDetail> = [
     {
       title: "Service",
       dataIndex: "serviceName",
@@ -43,7 +42,7 @@ const BillFormDetail = ({
   ];
   return (
     <Modal title="BILL DETAIL" open={isModalOpen} onCancel={handleCancel}>
-      <Table<BillDetail>
+      <Table<IBillDetail>
         dataSource={bill}
         columns={columns}
         pagination={false}

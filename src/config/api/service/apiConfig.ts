@@ -5,7 +5,7 @@ import { store } from "../../../store/store";
 import { logout } from "../../../store/user/userSlice";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: import.meta.env.VITE_API,
   headers: {
     "Content-Type": "multipart/form-data",
   },

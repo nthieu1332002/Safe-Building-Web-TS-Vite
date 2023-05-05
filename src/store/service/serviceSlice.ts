@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import serviceAPI from "../../config/api/service/serviceAPI"
-import { CreateServiceRequest, Service } from "../../types/service.type";
-import { Search } from "../../types/search.type";
+import { ICreateServiceRequest, IService } from "../../types/service.type";
+import { ISearch } from "../../types/search.type";
 
 const { getServiceAPI, createServiceAPI } = serviceAPI;
 
 interface ServiceState {
-    services: Service[],
+    services: IService[],
     loading: boolean,
     error?: string,
     page: number,
@@ -67,7 +67,7 @@ const serviceSlice = createSlice({
 
 export const getService = createAsyncThunk(
     "service/getService",
-    async (data: Search, { rejectWithValue }) => {
+    async (data: ISearch, { rejectWithValue }) => {
         try {
             const res = await getServiceAPI(data);
             return res;
@@ -79,7 +79,7 @@ export const getService = createAsyncThunk(
 
 export const createService = createAsyncThunk(
     "service/createService",
-    async (data: CreateServiceRequest, { rejectWithValue }) => {
+    async (data: ICreateServiceRequest, { rejectWithValue }) => {
         try {
             const res = await createServiceAPI(data);
             if (res.status === 201) {

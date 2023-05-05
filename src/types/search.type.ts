@@ -1,4 +1,4 @@
-export interface Search {
+export interface ISearch {
   page: number;
   size: number;
   searchKey?: string;

@@ -3,13 +3,13 @@ import { DatePicker, Form, Input, Modal, Radio, Select, Space } from "antd";
 import dayjs from "dayjs";
 import { customerStatus } from "../../../ultis/types";
 import { updateResident } from "../../../store/resident/residentSlice";
-import { ResidentDetail } from "../../../types/resident.type";
+import { IResidentDetail } from "../../../types/resident.type";
 
 interface ResidentFormEditProps {
   loading: boolean;
   isModalOpen: boolean;
   handleCancel: () => void;
-  item: ResidentDetail | null,
+  item: IResidentDetail | null,
   dispatch: any,
   setIsModalEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: () => void;

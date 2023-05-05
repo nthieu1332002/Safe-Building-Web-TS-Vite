@@ -1,33 +1,33 @@
-import { ContractDetail } from "./contract.type";
+import { IContractDetail } from "./contract.type";
 
-interface ResidentBase {
+interface IResidentBase {
     id: string;
     fullname: string;
     citizenId: string;
     phone: string;
     status: string;
-    devices: Device[];
+    devices: IDevice[];
 }
 
-export interface Resident extends ResidentBase { }
+export interface IResident extends IResidentBase { }
 
-export interface ResidentDetail extends ResidentBase {
+export interface IResidentDetail extends IResidentBase {
     phone: string;
     email: string;
     address: string;
     dateOfBirth: string;
     gender: string;
     citizenId: string;
-    contract: ContractDetail[];
+    contract: IContractDetail[];
     dateJoin: string;
-    devices: Device[];
+    devices: IDevice[];
 }
 
-export interface Device {
+export interface IDevice {
     token: string;
 }
 
-interface ResidentCreateUpdateBase {
+interface IResidentCreateUpdateBase {
     phone: string;
     email: string;
     fullName: string;
@@ -38,8 +38,8 @@ interface ResidentCreateUpdateBase {
     gender: string;
 }
 
-export interface CreateResidentRequest extends ResidentCreateUpdateBase { }
+export interface ICreateResidentRequest extends IResidentCreateUpdateBase { }
 
-export interface UpdateResidentRequest extends ResidentCreateUpdateBase {
+export interface IUpdateResidentRequest extends IResidentCreateUpdateBase {
     id: string;
 }

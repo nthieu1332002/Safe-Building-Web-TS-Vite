@@ -1,4 +1,4 @@
-export interface Bill {
+export interface IBill {
     id: string;
     buildingName: string;
     room_number: number;
@@ -7,23 +7,23 @@ export interface Bill {
     status: string;
 }
 
-export interface BillDetail {
+export interface IBillDetail {
     id: string;
     serviceName: string,
     quantity: number,
     price: number,
 }
 
-export interface CreateBillRequest {
+export interface ICreateBillRequest {
     flatId: string;
-    service: ServiceList[];
+    service: IServiceList[];
 }
 
-interface ServiceList {
+interface IServiceList {
     id: string;
     quantity: number;
 }
 
-export interface CreateMonthlyBillRequest {
+export interface ICreateMonthlyBillRequest {
     uploadFile: File;
 }

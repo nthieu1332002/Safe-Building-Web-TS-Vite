@@ -4,7 +4,6 @@ import { RootState } from "../store/store";
 
 const ProtectedRoutes = () => {
   const { userToken } = useSelector((state: RootState) => state.user);
-
   return !userToken ? <Outlet /> : <Navigate to="/" />;
 };
 

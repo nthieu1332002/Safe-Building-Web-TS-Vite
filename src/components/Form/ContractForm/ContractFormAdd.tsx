@@ -10,20 +10,20 @@ import {
   Upload,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { postContract } from "../../../store/contract/contractSlice";
 import { UploadOutlined } from "@ant-design/icons";
 
 import { getFlatByBuilding } from "../../../store/building/buildingSlice";
 import { RootState } from "../../../store/store";
-import { ResidentDetail } from "../../../types/resident.type";
+import { IResidentDetail } from "../../../types/resident.type";
 import type { UploadFile } from 'antd/es/upload/interface'
+import { useSelector } from "react-redux";
 
 interface ResidentFormAddContractProps {
   isModalOpen: boolean;
   handleCancel: () => void;
   setIsModalAddContractOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  customer: ResidentDetail | null;
+  customer: IResidentDetail | null;
   dispatch: any;
 }
 

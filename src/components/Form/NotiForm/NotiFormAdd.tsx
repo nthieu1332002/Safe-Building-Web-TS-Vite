@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, InputNumber, Modal, Select, Space } from "antd";
+import { Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {
   sendMultiNotification,
@@ -59,19 +59,23 @@ const NotiFormAdd = ({
               customerIdList: customerId,
             };
             if (customerId.length !== 0) {
-              dispatch(sendMultiNotification(values2)).then((res: { payload: { status: number; }; }) => {
-                if (res.payload.status === 200) {
-                  form.resetFields();
-                  setIsModalOpen(false);
+              dispatch(sendMultiNotification(values2)).then(
+                (res: { payload: { status: number } }) => {
+                  if (res.payload.status === 200) {
+                    form.resetFields();
+                    setIsModalOpen(false);
+                  }
                 }
-              });
+              );
             } else {
-              dispatch(sendNotification(values)).then((res: { payload: { status: number; }; }) => {
-                if (res.payload.status === 200) {
-                  form.resetFields();
-                  setIsModalOpen(false);
+              dispatch(sendNotification(values)).then(
+                (res: { payload: { status: number } }) => {
+                  if (res.payload.status === 200) {
+                    form.resetFields();
+                    setIsModalOpen(false);
+                  }
                 }
-              });
+              );
             }
           })
           .catch((info) => {

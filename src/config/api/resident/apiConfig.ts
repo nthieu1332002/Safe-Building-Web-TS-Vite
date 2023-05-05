@@ -5,7 +5,7 @@ import { logout } from "../../../store/user/userSlice";
 import { toast } from "react-toastify";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: import.meta.env.VITE_API,
   headers: {
     "Content-Type": "application/json",
   },

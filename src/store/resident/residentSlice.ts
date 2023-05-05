@@ -1,14 +1,14 @@
-import { CreateResidentRequest, Resident, ResidentDetail, UpdateResidentRequest } from './../../types/resident.type';
+import { ICreateResidentRequest, IResident, IResidentDetail, IUpdateResidentRequest } from './../../types/resident.type';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import residentAPI from "../../config/api/resident/residentAPI"
 import { toast } from "react-toastify";
 
-import { Search } from "../../types/search.type";
+import { ISearch } from "../../types/search.type";
 const { getResidentAPI, createResidentAccountAPI, getResidentAccountByIdAPI, updateResidentAccountAPI } = residentAPI;
 
 interface ResidentState {
-    residents: Resident[];
-    residentDetail: ResidentDetail | null;
+    residents: IResident[];
+    residentDetail: IResidentDetail | null;
     loading: boolean;
     error?: string;
     page: number,
@@ -80,7 +80,7 @@ const residentSlice = createSlice({
 
 export const getResident = createAsyncThunk(
     "resident/getResident",
-    async (data: Search, { rejectWithValue }) => {
+    async (data: ISearch, { rejectWithValue }) => {
         try {
             const res = await getResidentAPI(data);
             return res;
@@ -93,7 +93,7 @@ export const getResident = createAsyncThunk(
 
 export const createResident = createAsyncThunk(
     "resident/createResident",
-    async (data: CreateResidentRequest, { rejectWithValue }) => {
+    async (data: ICreateResidentRequest, { rejectWithValue }) => {
         try {
             const res = await createResidentAccountAPI(data);
             if (res.status === 201) {
@@ -121,7 +121,7 @@ export const getResidentById = createAsyncThunk(
 
 export const updateResident = createAsyncThunk(
     "resident/updateResident",
-    async (data: UpdateResidentRequest, { rejectWithValue }) => {
+    async (data: IUpdateResidentRequest, { rejectWithValue }) => {
         try {
             const res = await updateResidentAccountAPI(data);
             if (res.status === 201) {

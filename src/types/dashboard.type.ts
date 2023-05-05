@@ -1,4 +1,4 @@
-export interface DashBoard {
+export interface IDashBoard {
     month: string;
     value: number;
 }
